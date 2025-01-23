@@ -12,7 +12,8 @@
                 @if(auth()->user() && auth()->user()->RoleID == 1) <!-- Assuming RoleID 1 is for Admin -->
                     <div class="text-center text-xl font-semibold text-green-500">
                         Hello, you've logged in as the admin.
-                        <livewire:path.to.ManageEmployees />
+                        <h1>Manage Employees</h1>
+        <livewire:manage-employees />
 
                     </div>
                 @endif
