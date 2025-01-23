@@ -18,9 +18,9 @@ class ManageEmployees extends Component
     protected $rules = [
         'name' => 'required|string|max:255',
         'email' => 'required|email|unique:users,email',
-        'phone_number' => 'required|string|max:15',  // Adjust the validation for phone number
-        'address' => 'required|string|max:255',  // Add address validation
-        'role_id' => 'required|in:2,3', // Role 2 or 3 (employee)
+        'phone_number' => 'required|string|max:15',
+        'address' => 'required|string|max:255',
+        'role_id' => 'required|in:2,3',
         'password' => 'required|string|min:8',
     ];
 
@@ -53,7 +53,6 @@ class ManageEmployees extends Component
                 'RoleID' => $this->role_id,
             ]);
 
-            // Send email to new employee
             Mail::to($employee->email)->send(new EmployerCredentialsMail($employee));
         }
 
@@ -89,7 +88,8 @@ class ManageEmployees extends Component
     // Delete employee
     public function deleteEmployee($id)
     {
-        User::find($id)->delete();
+        $employee = User::find($id);
+        $employee->delete();
         $this->employees = User::whereIn('RoleID', [2, 3])->get();
         session()->flash('message', 'Employee deleted successfully.');
     }
