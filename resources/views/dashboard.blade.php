@@ -16,6 +16,7 @@
 @elseif(auth()->user() && auth()->user()->RoleID == 2) <!-- Assuming RoleID 2 is for Employee -->
     <div>
         <h2>Employee's account</h2>
+        <livewire:manage-categories>
     </div>
 @elseif(auth()->user() && auth()->user()->RoleID == 3) <!-- Assuming RoleID 3 is for Employee Delivery -->
     <div>
