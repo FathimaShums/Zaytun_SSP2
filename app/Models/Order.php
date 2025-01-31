@@ -11,11 +11,15 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
+        'guest_name',
+        'guest_email',
+        'guest_phone',
         'default_address',
         'custom_address',
         'status',
         'total_price',
     ];
+    
 
     // Define the relationship to User
     public function user()
@@ -34,4 +38,6 @@ class Order extends Model
     {
         return $this->hasOne(Delivery::class);
     }
+  
+
 }
