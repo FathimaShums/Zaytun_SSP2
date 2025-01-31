@@ -27,6 +27,9 @@
     <div>
         <h2>Customer's account</h2>
         @livewire('food-items-by-category')
+        <h2 class="mt-6 text-2xl font-bold">Your Cart</h2>
+        @livewire('cart') <!-- Show cart below food items -->
+        @livewire('checkout')
     </div>
 @endif
 
