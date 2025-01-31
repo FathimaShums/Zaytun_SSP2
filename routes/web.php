@@ -2,12 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FoodItemController;
+use App\Http\Controllers\CheckoutController;
+use App\Livewire\Checkout;
 
+Route::get('/checkout', Checkout::class)->name('checkout');
 
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::post('/checkout', [CheckoutController::class, 'placeOrder'])->name('checkout.place');
 
 
 Route::prefix('food-items')->group(function () {
