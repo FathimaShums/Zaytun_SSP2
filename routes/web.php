@@ -4,6 +4,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FoodItemController;
 use App\Http\Controllers\CheckoutController;
 use App\Livewire\Checkout;
+use App\Livewire\AppetizersComponent;
+use App\Livewire\MainCourseComponent;
+use App\Livewire\DessertsComponent;
+use App\Livewire\BeveragesComponent;
+
+Route::get('/appetizers', AppetizersComponent::class)->name('appetizers');
+
+Route::get('/desserts', DessertsComponent::class)->name('desserts');
+Route::get('/beverages', BeveragesComponent::class)->name('beverages');
+
+Route::get('/main-courses', MainCourseComponent::class)->name('main-courses');
 
 Route::get('/checkout', Checkout::class)->name('checkout');
 

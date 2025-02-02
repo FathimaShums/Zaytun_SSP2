@@ -18,6 +18,7 @@
         <h2>Employee's account</h2>
         @livewire('manage-food-items')
         <livewire:manage-categories>
+            <livewire:order-management />
     </div>
 @elseif(auth()->user() && auth()->user()->RoleID == 3) <!-- Assuming RoleID 3 is for Employee Delivery -->
     <div>
@@ -31,6 +32,9 @@
         @livewire('cart') <!-- Show cart below food items -->
         @livewire('checkout')
     </div>
+    <div>
+     
+    </div>
 @endif
 
 
@@ -41,4 +45,3 @@
         </div>
     </div>
 </x-app-layout>
-

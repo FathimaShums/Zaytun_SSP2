@@ -41,8 +41,19 @@ class Checkout extends Component
             ]);
         }
 
-        Session::forget('cart');
-       // return redirect()->route('order.success');
+        $this->cart = [];
+        $this->totalPrice = 0;
+    
+        // Clear guest input fields only if the user is not logged in
+        if (!Auth::check()) {
+            $this->guest_name = '';
+            $this->guest_email = '';
+            $this->guest_phone = '';
+        }
+    
+        // Flash success message
+        $this->dispatch('orderPlaced', 'Your order has been placed successfully!');
+        
     }
 
     public function render()
