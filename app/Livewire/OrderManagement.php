@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Livewire;
 
 use Livewire\Component;
@@ -42,7 +43,7 @@ class OrderManagement extends Component
         // Assign order to delivery person
         Delivery::create([
             'order_id' => $order->id,
-            'delivery_person_id' => 8, // Example delivery person ID, change accordingly
+            'delivery_person_id' => $deliveryPersonId, // Correct delivery person ID
             'delivery_status' => 'assigned', // Correct enum value
             'delivery_time' => Carbon::now(),
         ]);

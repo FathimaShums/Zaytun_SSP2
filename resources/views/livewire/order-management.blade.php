@@ -15,6 +15,7 @@
                 <th class="border p-2">Order ID</th>
                 <th class="border p-2">Customer</th>
                 <th class="border p-2">Address</th>
+                <th class="border p-2">Food Items</th>
                 <th class="border p-2">Status</th>
                 <th class="border p-2">Assign Delivery</th>
             </tr>
@@ -26,6 +27,12 @@
                     <td class="border p-2">{{ $order->user_id ? $order->user->name : $order->guest_name }}</td>
                     <td class="border p-2">
                         {{ $order->custom_address ?? $order->default_address }}
+                    </td>
+                    <td class="border p-2">
+                        <!-- Loop through the order details to show food items and their quantities -->
+                        @foreach($order->orderDetails as $orderDetail)
+                            <div>{{ $orderDetail->foodItem->name }} (x{{ $orderDetail->quantity }})</div>
+                        @endforeach
                     </td>
                     <td class="border p-2">{{ ucfirst($order->status) }}</td>
                     <td class="border p-2">
