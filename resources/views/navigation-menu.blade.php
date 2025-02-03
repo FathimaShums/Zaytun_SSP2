@@ -14,7 +14,7 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    @if(auth()->user() && auth()->user()->RoleID == 4)|| !auth()->check())
+                    @if(auth()->user() && auth()->user()->RoleID == 4)
                     <x-nav-link href="{{ route('appetizers') }}" :active="request()->routeIs('appetizers')">
                         {{ __('Appetizers') }}
                     </x-nav-link>
@@ -26,6 +26,9 @@
                     </x-nav-link>
                     <x-nav-link href="{{ route('beverages') }}" :active="request()->routeIs('beverages')">
                         {{ __('Beverages') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('user.orders') }}" :active="request()->routeIs('user.orders')">
+                        {{ __('My Orders') }}
                     </x-nav-link>
                 
                     <!-- My Cart Link with Styling -->

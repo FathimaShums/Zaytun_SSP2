@@ -3,7 +3,6 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Delivery;
-use App\Models\User;
 use App\Models\Order;
 
 class AssignedOrders extends Component
@@ -20,7 +19,6 @@ class AssignedOrders extends Component
             ->get();
     }
     
-
     public function updateDeliveryStatus($deliveryId, $newStatus)
     {
         // Validate the new status
@@ -41,6 +39,13 @@ class AssignedOrders extends Component
             // Optionally, update the delivery time when status changes to "out for delivery" or "delivered"
             if ($newStatus == 'out for delivery') {
                 $delivery->update(['delivery_time' => now()]);
+            }
+
+            // If the delivery is marked as 'delivered', update the order status as well
+            if ($newStatus == 'delivered') {
+                $delivery->order->update([
+                    'status' => 'delivered', // Mark the order status as 'delivered'
+                ]);
             }
 
             session()->flash('success', 'Delivery status updated successfully');

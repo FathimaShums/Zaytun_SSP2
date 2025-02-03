@@ -9,6 +9,10 @@ use App\Livewire\MainCourseComponent;
 use App\Livewire\DessertsComponent;
 use App\Livewire\BeveragesComponent;
 use App\Livewire\Cart;
+use App\Livewire\UserOrders;
+
+Route::get('/my-orders', UserOrders::class)->name('user.orders')->middleware('auth');
+
 
 Route::get('/cart', Cart::class)->name('cart');
 
