@@ -27,47 +27,52 @@
                     <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
                        
                         @if (Route::has('login'))
-                            <nav class="-mx-3 flex flex-1 justify-end">
-                                @auth
+                        <nav class="-mx-3 flex flex-1 justify-end">
+                            @auth
+                                <a
+                                    href="{{ url('/dashboard') }}"
+                                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                >
+                                    Dashboard
+                                </a>
+                            @else
+                                <a
+                                    href="{{ route('login') }}"
+                                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                >
+                                    Log in
+                                </a>
+            
+                                @if (Route::has('register'))
                                     <a
-                                        href="{{ url('/dashboard') }}"
+                                        href="{{ route('register') }}"
                                         class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                                     >
-                                        Dashboard
+                                        Register
                                     </a>
-                                @else
-                                    <a
-                                        href="{{ route('login') }}"
-                                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                    >
-                                        Log in
-                                    </a>
-
-                                    @if (Route::has('register'))
-                                        <a
-                                            href="{{ route('register') }}"
-                                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                        >
-                                            Register
-                                        </a>
-                                    @endif
-                                @endauth
-                            </nav>
+                                @endif
+            
+                                <!-- Livewire Component Links (visible on larger screens) -->
+                              
+            
+                                <!-- My Cart Link with Styling (visible on all screens) -->
+                                <a href="{{ route('cart') }}" 
+                                    class="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-full flex items-center space-x-2 shadow-lg transition mt-4 md:mt-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 3m0 0h10m-7 14a1 1 0 102 0m6 0a1 1 0 102 0"></path>
+                                    </svg>
+                                    <span>My Cart</span>
+                                </a>
+                            @endauth
+                        </nav>
                         @endif
                     </header>
 
                     <main class="mt-6">
                         
                             @livewire('food-items-by-category')
-                            @livewire('cart')
-                            <div>
-                                <div>
-                                    <livewire:appetizers-component />
-                                    <livewire:desserts-component />
-                                    <livewire:beverages-component />
-                                    <livewire:main-course-component />
-                                </div>
-                            </div>
+                            
+                          
                                      
 
                                 

@@ -40,4 +40,11 @@
             Proceed to Checkout
         </button>
     @endif
+    @if(!Auth::check())
+    <div class="text-center mt-4">
+        <a href="{{ url('/') }}" class="inline-block px-6 py-3 text-blue-600 border border-blue-600 rounded-md hover:bg-blue-600 hover:text-white transition">
+            Return to Home
+        </a>
+    </div>
+@endif
 </div>

@@ -77,4 +77,12 @@
         <!-- Submit Order Button -->
         <button type="submit" class="w-full py-3 mt-6 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Place Order</button>
     </form>
+
+    @if(!Auth::check())
+    <div class="text-center mt-4">
+        <a href="{{ url('/') }}" class="inline-block px-6 py-3 text-blue-600 border border-blue-600 rounded-md hover:bg-blue-600 hover:text-white transition">
+            Return to Home
+        </a>
+    </div>
+@endif
 </div>
