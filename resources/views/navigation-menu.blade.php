@@ -14,6 +14,7 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @if(auth()->user() && auth()->user()->RoleID == 4)
                     <x-nav-link href="{{ route('appetizers') }}" :active="request()->routeIs('appetizers')">
                         {{ __('Appetizers') }}
                     </x-nav-link>
@@ -35,6 +36,7 @@
                         </svg>
                         <span>My Cart</span>
                     </a>
+                    @endif
                 </div>
                 
             </div>
