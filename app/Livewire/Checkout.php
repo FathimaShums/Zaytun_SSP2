@@ -14,56 +14,47 @@ class Checkout extends Component
     public $cart;
     public $guest_name, $guest_email, $guest_phone;
     public $totalPrice = 0;
-    public $useDefaultAddress = true;  // Declare this inside the class
+    public $useDefaultAddress = true;  
     public $custom_address = '';
 
     public function mount()
     {
         $this->cart = Session::get('cart', []);
         $this->totalPrice = array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $this->cart));
+
+        if (Auth::check()) {
+            // Prefill logged-in user's details
+            $user = Auth::user();
+            $this->guest_name = $user->name;
+            $this->guest_email = $user->email;
+            $this->guest_phone = $user->phone_number;
+        }
     }
 
     public function placeOrder()
     {
         if (!$this->cart) return;
-    
-        // Determine the address based on the condition
-        $address = null;
-    
-        if (Auth::check()) {
-            // If using default address, take from the User model
-            if ($this->useDefaultAddress) {
-                $address = Auth::user()->address;
-            } else {
-                // If custom address is provided, use that
-                $address = $this->custom_address;
-            }
-        } else {
-            // If guest, custom address is required
-            $address = $this->custom_address;
-        }
-    
-        // Log the address value for debugging
-        \Log::info('Address:', ['address' => $address]);
-        
-        // Validate if address is provided for non-logged-in users
-        if (empty($address) && !Auth::check()) {
+
+        // Determine address
+        $address = $this->useDefaultAddress && Auth::check() ? Auth::user()->address : $this->custom_address;
+
+        if (empty($address)) {
             session()->flash('message', 'Please provide an address.');
             return;
         }
-    
-        // Create the order
+
+        // Create order
         $order = Order::create([
             'user_id' => Auth::check() ? Auth::id() : null,
-            'guest_name' => $this->guest_name,
-            'guest_email' => $this->guest_email,
-            'guest_phone' => $this->guest_phone,
+            'guest_name' => Auth::check() ? Auth::user()->name : $this->guest_name,
+            'guest_email' => Auth::check() ? Auth::user()->email : $this->guest_email,
+            'guest_phone' => Auth::check() ? Auth::user()->phone_number : $this->guest_phone,
             'default_address' => Auth::check() && $this->useDefaultAddress ? Auth::user()->address : null,
             'custom_address' => $address,
             'status' => 'pending',
             'total_price' => $this->totalPrice,
         ]);
-    
+
         foreach ($this->cart as $item) {
             OrderDetail::create([
                 'order_id' => $order->id,
@@ -72,21 +63,19 @@ class Checkout extends Component
                 'price' => $item['price'],
             ]);
         }
-    
+
+        // Clear cart and fields
         $this->cart = [];
         $this->totalPrice = 0;
-    
-        // Clear guest input fields only if the user is not logged in
         if (!Auth::check()) {
             $this->guest_name = '';
             $this->guest_email = '';
             $this->guest_phone = '';
         }
-    
-        // Flash success message
+
         $this->dispatch('orderPlaced', 'Your order has been placed successfully!');
+        return redirect()->route('checkout')->with('successMessage', 'Your order has been placed successfully!');
     }
-    
 
     public function render()
     {
