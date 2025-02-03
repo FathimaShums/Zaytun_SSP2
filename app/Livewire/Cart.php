@@ -36,6 +36,6 @@ class Cart extends Component
 
     public function render()
     {
-        return view('livewire.cart');
+        return view('livewire.cart')->layout('layouts.app');
     }
 }

@@ -14,6 +14,7 @@
             <tr class="bg-gray-200">
                 <th class="border p-2">Order ID</th>
                 <th class="border p-2">Customer</th>
+                <th class="border p-2">Address</th>
                 <th class="border p-2">Status</th>
                 <th class="border p-2">Assign Delivery</th>
             </tr>
@@ -23,15 +24,18 @@
                 <tr>
                     <td class="border p-2">{{ $order->id }}</td>
                     <td class="border p-2">{{ $order->user_id ? $order->user->name : $order->guest_name }}</td>
+                    <td class="border p-2">
+                        {{ $order->custom_address ?? $order->default_address }}
+                    </td>
                     <td class="border p-2">{{ ucfirst($order->status) }}</td>
                     <td class="border p-2">
-                        <select wire:model="selectedDeliveryPerson" class="border p-1">
+                        <select wire:model="selectedDeliveryPersons.{{ $order->id }}" class="border p-1">
                             <option value="">Select Delivery Person</option>
                             @foreach($deliveryMen as $deliveryMan)
                                 <option value="{{ $deliveryMan->id }}">{{ $deliveryMan->name }}</option>
                             @endforeach
                         </select>
-                        <button wire:click="assignDelivery" class="bg-blue-500 text-white p-2 rounded ml-2">
+                        <button wire:click="assignDelivery({{ $order->id }})" class="bg-blue-500 text-white p-2 rounded ml-2">
                             Assign
                         </button>
                     </td>

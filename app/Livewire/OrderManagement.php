@@ -14,28 +14,25 @@ class OrderManagement extends Component
 {
     public $orders;
     public $deliveryMen;
-    public $selectedOrder;
-    public $selectedDeliveryPerson;
+    public $selectedDeliveryPersons = [];
 
     public function mount()
     {
-        // Fetch pending orders
         $this->orders = Order::where('status', 'pending')->get();
-
-        // Fetch delivery personnel (RoleID = 3)
         $this->deliveryMen = User::where('RoleID', 3)->get();
     }
 
-    public function assignDelivery()
+    public function assignDelivery($orderId)
     {
-        // Ensure order and delivery person are selected
-        if (!$this->selectedOrder || !$this->selectedDeliveryPerson) {
-            session()->flash('error', 'Please select an order and a delivery person.');
+        // Ensure a delivery person is selected for this order
+        if (!isset($this->selectedDeliveryPersons[$orderId]) || !$this->selectedDeliveryPersons[$orderId]) {
+            session()->flash('error', 'Please select a delivery person for Order ID ' . $orderId);
             return;
         }
 
-        $order = Order::find($this->selectedOrder);
-        $deliveryPerson = User::find($this->selectedDeliveryPerson);
+        $deliveryPersonId = $this->selectedDeliveryPersons[$orderId];
+        $order = Order::find($orderId);
+        $deliveryPerson = User::find($deliveryPersonId);
 
         if (!$order || !$deliveryPerson) {
             session()->flash('error', 'Invalid selection.');
@@ -43,23 +40,23 @@ class OrderManagement extends Component
         }
 
         // Assign order to delivery person
-        $delivery = Delivery::create([
+        Delivery::create([
             'order_id' => $order->id,
-            'delivery_person_id' => $deliveryPerson->id,
-            'delivery_status' => 'pending',
+            'delivery_person_id' => 8, // Example delivery person ID, change accordingly
+            'delivery_status' => 'assigned', // Correct enum value
             'delivery_time' => Carbon::now(),
         ]);
 
         // Update order status
-        $order->update(['status' => 'processing']);
+        $order->update(['status' => 'in progress']);
 
         // Send email notification
         $recipientEmail = $order->user_id ? $order->user->email : $order->guest_email;
-        //Mail::to($recipientEmail)->send(new OrderProcessingMail($order));
+        // Mail::to($recipientEmail)->send(new OrderProcessingMail($order));
 
         // Refresh data
         $this->mount();
-        session()->flash('success', 'Delivery assigned and email sent.');
+        session()->flash('success', 'Delivery assigned for Order ID ' . $orderId);
     }
 
     public function render()

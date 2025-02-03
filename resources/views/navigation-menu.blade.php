@@ -4,13 +4,13 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+                    <a href="{{ route('dashboard') }}" class="text-3xl font-bold text-green-600 hover:text-green-800">
+                        Zaytun
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex items-center">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
@@ -26,7 +26,17 @@
                     <x-nav-link href="{{ route('beverages') }}" :active="request()->routeIs('beverages')">
                         {{ __('Beverages') }}
                     </x-nav-link>
+                
+                    <!-- My Cart Link with Styling -->
+                    <a href="{{ route('cart') }}" 
+                        class="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-full flex items-center space-x-2 shadow-lg transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 3m0 0h10m-7 14a1 1 0 102 0m6 0a1 1 0 102 0"></path>
+                        </svg>
+                        <span>My Cart</span>
+                    </a>
                 </div>
+                
             </div>
 
             <!-- Right-side dropdowns -->

@@ -1,7 +1,9 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
+            <a href="{{ route('dashboard') }}" class="text-3xl font-bold text-green-600 ">
+                Zaytun
+            </a>
         </x-slot>
 
         <x-validation-errors class="mb-4" />
@@ -39,7 +41,7 @@
                     </a>
                 @endif
 
-                <x-button class="ms-4">
+                <x-button class="ms-4 bg-green-500">
                     {{ __('Log in') }}
                 </x-button>
             </div>

@@ -8,6 +8,10 @@ use App\Livewire\AppetizersComponent;
 use App\Livewire\MainCourseComponent;
 use App\Livewire\DessertsComponent;
 use App\Livewire\BeveragesComponent;
+use App\Livewire\Cart;
+
+Route::get('/cart', Cart::class)->name('cart');
+
 
 Route::get('/appetizers', AppetizersComponent::class)->name('appetizers');
 

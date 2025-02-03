@@ -8,6 +8,7 @@
                     <img src="{{ asset('storage/' . $foodItem->image) }}" alt="{{ $foodItem->name }}" class="w-full h-32 object-cover rounded-lg">
                     
                     <p class="text-lg font-bold">{{ $foodItem->name }}</p>
+                    <p class="text-gray-700 text-sm">{{ $foodItem->description }}</p> <!-- Description Added -->
                     <p class="text-green-600 font-semibold">${{ number_format($foodItem->price, 2) }}</p>
 
                     <div class="flex gap-2 mt-2">

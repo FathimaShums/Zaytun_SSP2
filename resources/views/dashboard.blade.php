@@ -23,14 +23,13 @@
 @elseif(auth()->user() && auth()->user()->RoleID == 3) <!-- Assuming RoleID 3 is for Employee Delivery -->
     <div>
         <h2>Employee Delivery's account</h2>
+        @livewire('assigned-orders')
     </div>
 @elseif(auth()->user() && auth()->user()->RoleID == 4) <!-- Assuming RoleID 4 is for Customer -->
     <div>
-        <h2>Customer's account</h2>
+        
         @livewire('food-items-by-category')
-        <h2 class="mt-6 text-2xl font-bold">Your Cart</h2>
-        @livewire('cart') <!-- Show cart below food items -->
-        @livewire('checkout')
+        
     </div>
     <div>
      
@@ -40,7 +39,7 @@
 
 
                 <!-- Include the Welcome component -->
-                <x-welcome />
+     
             </div>
         </div>
     </div>

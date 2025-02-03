@@ -27,4 +27,8 @@ class Delivery extends Model
     {
         return $this->belongsTo(User::class, 'delivery_person_id');
     }
+    protected $casts = [
+        'delivery_status' => 'string',
+    ];
+    
 }
